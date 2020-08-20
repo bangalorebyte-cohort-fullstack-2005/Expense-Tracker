@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from expense_tracker.views import registration_view, home_screen, logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home_screen, name="home"),
     path('expense_tracker/', include('expense_tracker.urls')),
+    path('register/', registration_view, name= "register"),
+    path('logout/', logout, name= "logout"),
 ]

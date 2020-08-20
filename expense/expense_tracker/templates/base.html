@@ -4,8 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker</title>
+
+    {% if request.user.is_authenticated %}
+        <p>Hey {{request.user.username }} <a href="{% url 'logout' %}">Logout</a></p>
+
+    {% else %}
+        <p><a href="{% url 'register' %}">Register</a> <a href="#">Login</a></p>
+    {% endif %}
 </head>
 <body>
-    
-</body>
+    {% block content %}
+
+    {% endblock content %}
+    </body>
+<footer>
+    <p>Expense Tracker</p>
+</footer>
 </html>
