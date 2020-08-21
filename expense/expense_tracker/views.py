@@ -37,6 +37,16 @@ def login(request):
         if form.is_valid():
             email= request.POST['email']
             password= request.POST['password']
+            user = authenticate(email= email, password= password)
+            if user:
+                login(request, user)
+                return redirect("home")
+
+    else:
+        form= AuthenticationForm()
+    
+    context['login_form']= form
+    return render(request, 'expense_tracker/login.html', context)
 
 
     

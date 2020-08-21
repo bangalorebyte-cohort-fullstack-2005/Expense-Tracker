@@ -20,7 +20,8 @@ class AuthenticationForm(forms.ModelForm):
         field= ('email', 'password')
 
     def clean(self):
-        email= self.cleaned_data['email']
-        password= self.cleaned_data['password']
-        if not authenticate(email= email, password= password):
-            raise forms.ValidationError("Invalid credentials")
+        if self.is_valid():
+            email= self.cleaned_data['email']
+            password= self.cleaned_data['password']
+            if not authenticate(email= email, password= password):
+                raise forms.ValidationError("Invalid credentials")

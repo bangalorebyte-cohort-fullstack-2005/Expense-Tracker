@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from expense_tracker.views import registration_view, home_screen, logout
+from expense_tracker.views import registration_view, home_screen, logout, login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,4 +23,5 @@ urlpatterns = [
     path('expense_tracker/', include('expense_tracker.urls')),
     path('register/', registration_view, name= "register"),
     path('logout/', logout, name= "logout"),
+    path('login/', login, name= "login"),
 ]
