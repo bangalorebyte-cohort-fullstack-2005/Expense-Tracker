@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-from expense_tracker.forms import RegistrationForm, AuthenticationForm
+from expense_tracker.forms import RegistrationForm, AuthenticationForm, UpdateForm
 
 
 # Create your views here.
@@ -47,6 +47,25 @@ def login(request):
     
     context['login_form']= form
     return render(request, 'expense_tracker/login.html', context)
+
+def account_view(request):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    context= {}
+    if request.POST:
+        form= UpdateForm(request.POST, instance= request.user)
+        if form.is_valid():
+            form.save()
+        else:
+            form= UpdateForm(
+                initial= {
+                    "email": request.user.email,
+                    "username": request.user.username
+                }
+            )
+    
+    context['account_form']= form
+    return render(request, 'expense_tracker/update.html', context)
 
 
     
